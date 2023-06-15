@@ -1,3 +1,4 @@
 {
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "cmake.sourceDirectory": "C:/Users/lflav/Documents/PlatformIO/Projects/Line Follower Car/.pio/libdeps/uno/Unity"
 }
