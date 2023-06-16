@@ -69,8 +69,8 @@ void loop()
   if (middleSensorState == lineDetected && sensoresLateraisDesligados())
   {
     // Ambos os motores seguem em frente com velocidade máxima
-    analogWrite(leftMotorForwardPin, 130);
-    analogWrite(rightMotorForwardPin, 121);
+    analogWrite(leftMotorForwardPin, 150);
+    analogWrite(rightMotorForwardPin, 140);
     lastMovement = moveForward; // Armazena o movimento de frente
     Serial.println("Movimento: Frente");
   }
@@ -99,6 +99,13 @@ void loop()
     analogWrite(leftMotorForwardPin, 100);
     analogWrite(rightMotorForwardPin, 93);
     square++;
+    while (extremalRigthSensorState == lineDetected)
+    {
+      delay(2);
+      leitura();
+    }
+    Serial.println(square);
+
     blockOnLoop++;
 
     while (blockOnLoop != 0)
@@ -129,8 +136,8 @@ void loop()
       if (middleSensorState == lineDetected && sensoresLateraisDesligados())
       {
         // Ambos os motores seguem em frente com velocidade máxima
-        analogWrite(leftMotorForwardPin, 130);
-        analogWrite(rightMotorForwardPin, 121);
+        analogWrite(leftMotorForwardPin, 150);
+        analogWrite(rightMotorForwardPin, 140);
         lastMovement = moveForward; // Armazena o movimento de frente
         Serial.println("Movimento: Frente");
         leitura();
@@ -169,13 +176,13 @@ void loop()
             while (!movimentoPerfeito())
             {
               Serial.println("VIRANDO A ESQUERDA...");
-              analogWrite(rightMotorForwardPin, 130);
+              analogWrite(rightMotorForwardPin, 150);
               analogWrite(leftMotorForwardPin, 0);
               leitura();
             }
 
-            analogWrite(leftMotorForwardPin, 130);
-            analogWrite(rightMotorForwardPin, 121);
+            analogWrite(leftMotorForwardPin, 150);
+            analogWrite(rightMotorForwardPin, 140);
             blockOnLoop = 0;
             leftSquare = 0;
           }
@@ -203,21 +210,21 @@ void loop()
 
         if (middleSensorState == lineNotDetected && sensoresLateraisLigados())
         {
-          analogWrite(leftMotorForwardPin, 130);
-          analogWrite(rightMotorForwardPin, 121);
+          analogWrite(leftMotorForwardPin, 150);
+          analogWrite(rightMotorForwardPin, 140);
           lastMovement = moveForward;
           Serial.println("Andando pra frente antes da faixa");
         }
         else if ((leftSensorState == lineNotDetected || (leftSensorState == lineNotDetected && middleSensorState == lineNotDetected)) && rightSensorState == lineDetected)
         {
           analogWrite(leftMotorForwardPin, 10);
-          analogWrite(rightMotorForwardPin, 121);
+          analogWrite(rightMotorForwardPin, 93);
           lastMovement = turnLeft;
           Serial.println("Corrigindo para esquerda antes da faixa");
         }
         else if ((rightSensorState == lineNotDetected || (rightSensorState == lineNotDetected && middleSensorState == lineNotDetected)) && leftSensorState == lineDetected)
         {
-          analogWrite(leftMotorForwardPin, 130);
+          analogWrite(leftMotorForwardPin, 100);
           analogWrite(rightMotorForwardPin, 10);
           lastMovement = turnRight;
           Serial.println("Corrigindo para direita antes da faixa");
@@ -235,8 +242,8 @@ void loop()
         if (middleSensorState == lineDetected && sensoresLateraisDesligados())
         {
           // Ambos os motores seguem em frente com velocidade máxima
-          analogWrite(leftMotorForwardPin, 130);
-          analogWrite(rightMotorForwardPin, 121);
+          analogWrite(leftMotorForwardPin, 150);
+          analogWrite(rightMotorForwardPin, 140);
           lastMovement = moveForward; // Armazena o movimento de frente
           Serial.println("Movimento: Frente");
         }
@@ -245,7 +252,7 @@ void loop()
         {
           // O motor esquerdo gira em sentido contrário ao dos motores com velocidade reduzida
           analogWrite(leftMotorForwardPin, 10);
-          analogWrite(rightMotorForwardPin, 121);
+          analogWrite(rightMotorForwardPin, 93);
           lastMovement = turnLeft; // Armazena o movimento para a esquerda
           Serial.println("Movimento: Esquerda");
         }
@@ -253,7 +260,7 @@ void loop()
         else if ((rightSensorState == lineDetected || (rightSensorState == lineDetected && middleSensorState == lineDetected)) && leftSensorState == lineNotDetected)
         {
           // O motor direito gira em sentido contrário ao dos motores com velocidade reduzida
-          analogWrite(leftMotorForwardPin, 130);
+          analogWrite(leftMotorForwardPin, 100);
           analogWrite(rightMotorForwardPin, 10);
           lastMovement = turnRight; // Armazena o movimento para a direita
           Serial.println("Movimento: Direita");
@@ -265,8 +272,8 @@ void loop()
 
           while (!movimentoPerfeito())
           {
-            analogWrite(leftMotorForwardPin, 130);
-            analogWrite(rightMotorForwardPin, 121);
+            analogWrite(leftMotorForwardPin, 150);
+            analogWrite(rightMotorForwardPin, 140);
             lastMovement = moveForward; // Armazena o movimento de frente
             Serial.println("Movimento: Frente");
             black = 0;
@@ -275,16 +282,16 @@ void loop()
       }
 
       Serial.println("Ligando motores antes da faixa....");
-      analogWrite(leftMotorForwardPin, 130);
-      analogWrite(rightMotorForwardPin, 121);
+      analogWrite(leftMotorForwardPin, 150);
+      analogWrite(rightMotorForwardPin, 140);
       delay(3000); // TODO: AJUSTAR O TEMPO...
       leitura();
 
       while (middleSensorState == lineNotDetected && rightSensorState == lineNotDetected && leftSensorState == lineNotDetected)
       {
         Serial.println("ANDANDO NO PRETO.....");
-        analogWrite(leftMotorForwardPin, 130);
-        analogWrite(rightMotorForwardPin, 121);
+        analogWrite(leftMotorForwardPin, 150);
+        analogWrite(rightMotorForwardPin, 140);
         leitura();
       }
 
@@ -296,8 +303,8 @@ void loop()
         while (middleSensorState == lineDetected || rightSensorState == lineDetected || leftSensorState == lineDetected)
         {
           Serial.println("Faixa de pedestre chegou, acelerando....");
-          analogWrite(leftMotorForwardPin, 130);
-          analogWrite(rightMotorForwardPin, 121);
+          analogWrite(leftMotorForwardPin, 150);
+          analogWrite(rightMotorForwardPin, 140);
           leitura();
         }
         Serial.println("Saindo da faixa de pedestre....");
@@ -312,17 +319,17 @@ void loop()
     // Executa o último movimento realizado
     if (lastMovement == moveForward)
     {
-      analogWrite(leftMotorForwardPin, 130);
-      analogWrite(rightMotorForwardPin, 121);
+      analogWrite(leftMotorForwardPin, 150);
+      analogWrite(rightMotorForwardPin, 140);
     }
     else if (lastMovement == turnLeft)
     {
       analogWrite(leftMotorForwardPin, 10);
-      analogWrite(rightMotorForwardPin, 121);
+      analogWrite(rightMotorForwardPin, 93);
     }
     else if (lastMovement == turnRight)
     {
-      analogWrite(leftMotorForwardPin, 130);
+      analogWrite(leftMotorForwardPin, 100);
       analogWrite(rightMotorForwardPin, 10);
     }
     else
@@ -390,18 +397,19 @@ int rotatoriaDireita(int square, int blockOnLoop)
   {
     Serial.println("IDENTIFICANDO LINHA DEPOIS DO QUADRADO...");
 
-    desligaMotores(1130);
+    desligaMotores(1000);
 
     while (!movimentoPerfeito())
     {
       Serial.println("VIRANDO A DIREITA...");
-      analogWrite(leftMotorForwardPin, 130);
+      analogWrite(leftMotorForwardPin, 150);
       analogWrite(rightMotorForwardPin, 0);
+      delay(300);
       leitura();
     }
 
-    analogWrite(leftMotorForwardPin, 130);
-    analogWrite(rightMotorForwardPin, 121);
+    analogWrite(leftMotorForwardPin, 150);
+    analogWrite(rightMotorForwardPin, ]);
     return 0;
   }
   else if (middleSensorState == lineDetected && extremalRigthSensorState == lineDetected && extremalLeftSensorState == lineNotDetected && leftSensorState == lineNotDetected && rightSensorState == lineNotDetected)
@@ -409,44 +417,163 @@ int rotatoriaDireita(int square, int blockOnLoop)
 
     Serial.println("IDENTIFICANDO SEGUNDO QUADRADO A DIREITA, REDUZINDO A VELOCIDADE...");
     square++;
-
     analogWrite(leftMotorForwardPin, 90);
     analogWrite(rightMotorForwardPin, 84);
+
+    while (extremalRigthSensorState == lineDetected)
+    {
+      delay(2);
+      leitura();
+    }
+    Serial.println(square);
+
+    delay(2000);
+    leitura();
+
+    while (square == 2)
+    {
+
+      int contarDireita = 0;
+      leitura();
+
+      // Se o sensor do meio detectar a linha
+      if (middleSensorState == lineDetected && sensoresLateraisDesligados())
+      {
+        // Ambos os motores seguem em frente com velocidade máxima
+        analogWrite(leftMotorForwardPin, 150);
+        analogWrite(rightMotorForwardPin, 140);
+        lastMovement = moveForward; // Armazena o movimento de frente
+        Serial.println("Movimento: Frente");
+        leitura();
+      }
+      // Se o sensor esquerdo detectar que saiu da linha
+      else if ((leftSensorState == lineDetected || (leftSensorState == lineDetected && middleSensorState == lineDetected)) && rightSensorState == lineNotDetected)
+      {
+        // O motor esquerdo gira em sentido contrário ao dos motores com velocidade reduzida
+        analogWrite(leftMotorForwardPin, 10);
+        analogWrite(rightMotorForwardPin, 93);
+        lastMovement = turnLeft; // Armazena o movimento para a esquerda
+        Serial.println("Movimento: Esquerda");
+
+        leitura();
+      }
+      // Se o sensor direito detectar que saiu da linha
+      else if ((rightSensorState == lineDetected || (rightSensorState == lineDetected && middleSensorState == lineDetected)) && leftSensorState == lineNotDetected)
+      {
+        // O motor direito gira em sentido contrário ao dos motores com velocidade reduzida
+        analogWrite(leftMotorForwardPin, 100);
+        analogWrite(rightMotorForwardPin, 10);
+        lastMovement = turnRight; // Armazena o movimento para a direita
+        Serial.println("Movimento: Direita");
+
+        leitura();
+      }
+      else if (middleSensorState == lineDetected && leftSensorState == lineDetected && rightSensorState == lineDetected && extremalLeftSensorState == lineNotDetected && extremalRigthSensorState == lineNotDetected)
+      {
+
+        while (!movimentoPerfeito())
+        {
+          Serial.println("VIRANDO A DIREITA...");
+          analogWrite(leftMotorForwardPin, 150);
+          analogWrite(rightMotorForwardPin, 0);
+          delay(300);
+          contarDireita++;
+          leitura();
+        }
+
+        while (contarDireita != 0)
+        {
+          Serial.println("TO ESPERANDO A SAIDA DA ROTATORIA...");
+          leitura();
+          // Se o sensor do meio detectar a linha
+          if (middleSensorState == lineDetected && sensoresLateraisDesligados())
+          {
+            // Ambos os motores seguem em frente com velocidade máxima
+            analogWrite(leftMotorForwardPin, 150);
+            analogWrite(rightMotorForwardPin, 140);
+            lastMovement = moveForward; // Armazena o movimento de frente
+            Serial.println("Movimento: Frente");
+            leitura();
+
+            if (extremalRigthSensorState == lineDetected && extremalLeftSensorState == lineNotDetected)
+            {
+              Serial.println("INCREMENTANDO CONTAR DIREITA DURANTE Movimento: Frente");
+              contarDireita++;
+              Serial.println(contarDireita);
+            }
+          }
+          // Se o sensor esquerdo detectar que saiu da linha
+          else if ((leftSensorState == lineDetected || (leftSensorState == lineDetected && middleSensorState == lineDetected)) && rightSensorState == lineNotDetected)
+          {
+            // O motor esquerdo gira em sentido contrário ao dos motores com velocidade reduzida
+            analogWrite(leftMotorForwardPin, 10);
+            analogWrite(rightMotorForwardPin, 93);
+            lastMovement = turnLeft; // Armazena o movimento para a esquerda
+            Serial.println("Movimento: Esquerda");
+
+            leitura();
+
+            if (extremalRigthSensorState == lineDetected && extremalLeftSensorState == lineNotDetected)
+            {
+              Serial.println("INCREMENTANDO CONTAR DIREITA DURANTE Movimento: Esquerda");
+              contarDireita++;
+              Serial.println(contarDireita);
+            }
+          }
+          // Se o sensor direito detectar que saiu da linha
+          else if ((rightSensorState == lineDetected || (rightSensorState == lineDetected && middleSensorState == lineDetected)) && leftSensorState == lineNotDetected)
+          {
+            // O motor direito gira em sentido contrário ao dos motores com velocidade reduzida
+            analogWrite(leftMotorForwardPin, 100);
+            analogWrite(rightMotorForwardPin, 10);
+            lastMovement = turnRight; // Armazena o movimento para a direita
+            Serial.println("Movimento: Direita");
+
+            leitura();
+
+            if (extremalRigthSensorState == lineDetected && extremalLeftSensorState == lineNotDetected)
+            {
+              Serial.println("INCREMENTANDO CONTAR DIREITA DURANTE Movimento: Direitas");
+              contarDireita++;
+              Serial.println(contarDireita);
+            }
+          }
+          else if (contarDireita == 3)
+          {
+            while (!movimentoPerfeito())
+            {
+              Serial.println("VIRANDO A DIREITA...");
+              analogWrite(leftMotorForwardPin, 150);
+              analogWrite(rightMotorForwardPin, 0);
+              delay(300);
+              contarDireita = 0;
+              leitura();
+            }
+          }
+        }
+      }
+    }
 
     if (middleSensorState == lineDetected && extremalRigthSensorState == lineDetected && extremalLeftSensorState == lineNotDetected && leftSensorState == lineNotDetected && rightSensorState == lineNotDetected)
     {
 
       Serial.println("IDENTIFICANDO TERCEIRO QUADRADO A DIREITA, REDUZINDO A VELOCIDADE...");
       square++;
+
+      while (extremalRigthSensorState == lineDetected)
+      {
+        delay(2);
+        leitura();
+      }
+      Serial.println(square);
+
       analogWrite(leftMotorForwardPin, 90);
       analogWrite(rightMotorForwardPin, 84);
-
-      if (square == 3 && middleSensorState == lineDetected && rightSensorState == lineDetected && leftSensorState == lineDetected && extremalLeftSensorState == lineNotDetected && extremalRigthSensorState == lineNotDetected)
-      {
-        Serial.println("IDENTIFICANDO LINHA DEPOIS DO TERCEIRO QUADRADO...");
-
-        while (!movimentoPerfeito())
-        {
-          Serial.println("VIRANDO A DIREITA...");
-          analogWrite(leftMotorForwardPin, 130);
-          analogWrite(rightMotorForwardPin, 0);
-          leitura();
-        }
-
-        while (square != 0) {
-          
-        }
-
-        square = 0;
-        analogWrite(leftMotorForwardPin, 130);
-        analogWrite(rightMotorForwardPin, 121);
-        return 0;
-      }
     }
-    else if (movimentoPerfeito())
-    {
-      return 0;
-    }
+    // else if (movimentoPerfeito())
+    // {
+    //   return 0;
+    // }
 
     return 1;
   }
